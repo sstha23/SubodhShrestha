@@ -60,25 +60,57 @@
 				<!-- Footer -->
 					<footer id="footer">
 						<section>
-							<form method="post" action="#">
+							<form id="contact-form" method="POST" action="https://formspree.io/f/mqazowrn">
 								<div class="fields">
 									<div class="field">
 										<label for="name">Name</label>
-										<input type="text" name="name" id="name" />
+										<input type="text" name="name" id="name" required />
 									</div>
 									<div class="field">
 										<label for="email">Email</label>
-										<input type="text" name="email" id="email" />
+										<input type="email" name="email" id="email" required />
 									</div>
 									<div class="field">
 										<label for="message">Message</label>
-										<textarea name="message" id="message" rows="3"></textarea>
+										<textarea name="message" id="message" rows="3" required></textarea>
 									</div>
 								</div>
+								<!-- Hidden field for redirection after form submission -->
+								<input type="hidden" name="_next" value="https://sstha23.github.io/SubodhShrestha/index.html" />
 								<ul class="actions">
 									<li><input type="submit" value="Send Message" /></li>
 								</ul>
 							</form>
+						
+							<script>
+								document.getElementById('contact-form').addEventListener('submit', function(event) {
+									event.preventDefault(); // Prevent the default form submission
+						
+									// Fetch API to send the form data via POST
+									fetch('https://formspree.io/f/mqazowrn', {
+										method: 'POST',
+										body: new FormData(this),
+										headers: {
+											'Accept': 'application/json'
+										}
+									}).then(function(response) {
+										if (response.ok) {
+											// Show a prompt when the form is successfully submitted
+											alert('Thank you for sending the message.');
+						
+											// Clear the form fields
+											document.getElementById('contact-form').reset();
+						
+											// Redirect to the thank you page
+											window.location.href = 'https://sstha23.github.io/SubodhShrestha/index.html';
+										} else {
+											alert('Oops! There was a problem submitting the form.');
+										}
+									}).catch(function(error) {
+										alert('Oops! Something went wrong.');
+									});
+								});
+							</script>
 						</section>
 					<section class="split contact">
 							<section class="alt">
